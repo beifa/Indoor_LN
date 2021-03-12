@@ -1,4 +1,5 @@
-# Indoor_LN
+# Indoor_LN [kaggle](https://www.kaggle.com/c/indoor-location-navigation)
 Indoor Location &amp; Navigation Identify the position of a smartphone in a shopping mall
 
-link https://www.kaggle.com/c/indoor-location-navigation
+Webinar Video
+We held a webinar in July, the video is [here](https://www.youtube.com/watch?v=xt3OzMC-XMU).
