@@ -103,12 +103,11 @@ if __name__ == '__main__':
 
 
   
-  train_files = glob.glob('../Indoor_LN/input/train/*/*/*')
-  test_files = glob.glob('../Indoor_LN/input/test/*')
+  train_files = glob.glob('../Indoor_LN/input/train/*/*/*.txt')
+  test_files = glob.glob('../Indoor_LN/input/test/*.txt')
   all_files = train_files + test_files
   print(train_files)
   max_len_col = 10
-  data = []
   for files in all_files:
       print(files)
       with open(files) as f:
@@ -119,14 +118,17 @@ if __name__ == '__main__':
           if f.startswith('#'):
               len_head.append(f)
       txt = txt[len(len_head):-1]
+    
+      data = []
 
-      for i, line in enumerate(txt):
+      for line in txt:
           line_ = split_line(line)
           for l in line_:
-              fields = [field for field in l.strip().split('\t')]
-              # make all data eq len
-              fields += [np.nan] * (max_len_col - len(fields))
-          data.append(fields)
+            if len(fields) < max_len_col:
+                fields = [field for field in l.strip().split('\t')]
+#                 make all data eq len
+                fields += [np.nan] * (max_len_col - len(fields))
+            data.append(fields)
       columns = [f'columns_{i}' for i in range(1,len(fields)+1)]
       to_save = pd.DataFrame(data=data, columns=columns)   
 
