@@ -100,8 +100,13 @@ if __name__ == '__main__':
   assert split_line(test_line2) == [l2, l3], 'error not eq'
 
   print('Correct')
-
-
+    
+  """
+  
+    kaggle current time script ~ 2.10h
+    Size 9Gb
+    
+  """
   
   train_files = glob.glob('../Indoor_LN/input/train/*/*/*.txt')
   test_files = glob.glob('../Indoor_LN/input/test/*.txt')
@@ -116,7 +121,10 @@ if __name__ == '__main__':
       len_head =[]
       for f in txt:
           if f.startswith('#'):
-              len_head.append(f)
+                len_head.append(f)
+                if 'SiteID' in f:
+                    # faind building id
+                    site_id = f.split('\t')[1].split(':')[1]
       txt = txt[len(len_head):-1]
     
       data = []
@@ -138,7 +146,8 @@ if __name__ == '__main__':
           arg = '../Indoor_LN/input/for_test/train'
           dirr = os.path.join(arg, site, floor)
       else:
-          dirr = '../Indoor_LN/input/for_test/test'
+          # save by building id
+          dirr = os.path.join('../Indoor_LN/input/for_test/test', site_id)
       name = files.split(os.path.sep)[-1][:-4] 
       os.makedirs(dirr, exist_ok=True)    
       base = os.path.join(dirr, name + '.parquet')    
