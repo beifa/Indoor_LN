@@ -136,6 +136,9 @@ if __name__ == '__main__':
                 fields = [field for field in l.strip().split('\t')]
 #                 make all data eq len
                 fields += [np.nan] * (max_len_col - len(fields))
+    
+                if files.split(os.path.sep)[-4] == 'train':
+                   fields += [str(files)]
             data.append(fields)
       columns = [f'columns_{i}' for i in range(1,len(fields)+1)]
       to_save = pd.DataFrame(data=data, columns=columns)   
